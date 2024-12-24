@@ -40,28 +40,61 @@
 <body class="bg-gray-100 dark:bg-gray-900 font-sans">
     <div class="flex flex-col md:flex-row">
         <!-- Sidebar -->
-        <div class="bg-white dark:bg-gray-800 h-screen w-full md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center">
-            <div class="text-center mb-8">
-                <a href="index.html">
-                    <img alt="An animated image of Showrin Rahman" class="mx-auto" height="150" src="images/me video.gif" width="150"/>
-                </a>
-            </div>
-            <nav class="space-y-4 text-center">
-                <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html">About</a>
-                <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html#Experience">Experience</a>
-
-
-                <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html">Education </a>
-                <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
-
-                <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="Projects_Achievments.html">Projects & Awards</a>
-            </nav>
+      <!-- Sidebar -->
+<div id="sidebar" class="bg-white dark:bg-gray-800 h-screen w-0 md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center transition-all duration-300 overflow-hidden">
+    <div class="text-center mb-8">
+        <a href="index.html">
+            <img src="images/me video.gif" alt="An animated image" class="mx-auto" width="150" />
+        </a>
+    </div>
+    <nav class="space-y-4 text-center">
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html">About</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html#Experience">Experience</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html">Education</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="Projects_Achievments.html">Projects & Awards</a>
+    </nav>
+    <div class="text-center mt-8">
+        <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg" onclick="toggleTheme()">
+            Toggle Theme
+        </button>
+    </div>
+  </div>
+  
+  <!-- Open/Close Buttons -->
+  <button id="open-btn" class="fixed top-4 left-4 z-50 md:hidden bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full" onclick="toggleSidebar()">☰</button>
+  <button id="close-btn" class="fixed top-4 left-4 z-50 md:hidden bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full hidden" onclick="toggleSidebar()">✕</button>
+  
+  <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const openBtn = document.getElementById("open-btn");
+        const closeBtn = document.getElementById("close-btn");
+        
+        if (sidebar.classList.contains("w-0")) {
+            sidebar.classList.remove("w-0");
+            sidebar.classList.add("w-full");
+            sidebar.classList.remove("hidden"); // Ensure it's visible
+            openBtn.classList.add("hidden");
+            closeBtn.classList.remove("hidden");
+        } else {
+            sidebar.classList.add("w-0");
+            sidebar.classList.remove("w-full");
+            sidebar.classList.add("hidden"); // Hide completely
+            openBtn.classList.remove("hidden");
+            closeBtn.classList.add("hidden");
+        }
+    }
+  </script>
+  
             <div class="text-center mt-8">
                 <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600" onclick="toggleTheme()">
                     Toggle Theme
                 </button>
             </div>
         </div>
+
+
         <!-- Main Content -->
         <div class="ml-0 md:ml-96 p-6 md:p-12">
             <!-- Banner -->
@@ -82,8 +115,8 @@
                     <a class="text-gray-800 dark:text-gray-300" href="https://www.github.com" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-github fa-2x"></i>
                     </a>
-                    <a class="text-orange-600" href="https://leetcode.com" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-leetcode fa-2x"></i>
+                    <a class="text-orange-600" href="https://code.com" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-code fa-2x"></i>
                     </a>
                     <a class="text-red-600" href="mailto:showrin@example.com">
                         <i class="fas fa-envelope fa-2x"></i>
@@ -96,6 +129,12 @@
                     </a>
                 </div>
             </section>
+
+
+
+
+
+            
             <section class="education mb-12" id="Education">
                 <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Education</h2>
                 <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
@@ -150,7 +189,7 @@
                 <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
                     <h3 class="font-bold text-gray-900 dark:text-gray-100">Team Bertho, 
                         Website Developer</h3>
-                    <p class="italic text-gray-700 dark:text-gray-300">Jun 2021 - Oct 20224</p>
+                    <p class="italic text-gray-700 dark:text-gray-300">Jun 2021 - Oct 2024</p>
                     <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
                         <li>Tech Advisor for “Team Bertho,” an Diana Award for social impact-winning platform.
                             Designed Teambertho website with wordpress

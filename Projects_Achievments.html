@@ -43,22 +43,60 @@
  <body class="bg-gray-100 dark:bg-gray-900 font-sans">
   <div class="flex flex-col md:flex-row justify-center">
    <!-- Sidebar -->
-   <div class="bg-white dark:bg-gray-800 h-screen w-full md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center">
+<!-- Sidebar -->
+<div id="sidebar" class="bg-white dark:bg-gray-800 h-screen w-0 md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center transition-all duration-300 overflow-hidden">
     <div class="text-center mb-8">
-     <a href="index.html">
-      <img alt="An animated image of Showrin Rahman" class="mx-auto" src="images/me video.gif" width="150"/>
-     </a>
+        <a href="index.html">
+            <img src="images/me video.gif" alt="An animated image" class="mx-auto" width="150" />
+        </a>
     </div>
     <nav class="space-y-4 text-center">
         <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html">About</a>
         <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html#Experience">Experience</a>
-
-
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html">Education </a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html">Education</a>
         <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
-
         <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="Projects_Achievments.html">Projects & Awards</a>
     </nav>
+    <div class="text-center mt-8">
+        <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg" onclick="toggleTheme()">
+            Toggle Theme
+        </button>
+    </div>
+  </div>
+  
+  <!-- Open/Close Buttons -->
+  <button id="open-btn" class="fixed top-4 left-4 z-50 md:hidden bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full" onclick="toggleSidebar()">☰</button>
+  <button id="close-btn" class="fixed top-4 left-4 z-50 md:hidden bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full hidden" onclick="toggleSidebar()">✕</button>
+  
+  <script>
+    function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const openBtn = document.getElementById("open-btn");
+        const closeBtn = document.getElementById("close-btn");
+        
+        if (sidebar.classList.contains("w-0")) {
+            sidebar.classList.remove("w-0");
+            sidebar.classList.add("w-full");
+            sidebar.classList.remove("hidden"); // Ensure it's visible
+            openBtn.classList.add("hidden");
+            closeBtn.classList.remove("hidden");
+        } else {
+            sidebar.classList.add("w-0");
+            sidebar.classList.remove("w-full");
+            sidebar.classList.add("hidden"); // Hide completely
+            openBtn.classList.remove("hidden");
+            closeBtn.classList.add("hidden");
+        }
+    }
+  </script>
+  
+
+
+
+
+
+
+
     <div class="text-center mt-8">
      <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg" onclick="toggleTheme()">
       Toggle Theme
@@ -89,8 +127,8 @@
        <i class="fab fa-github fa-2x">
        </i>
       </a>
-      <a class="text-orange-600" href="https://leetcode.com">
-       <i class="fas fa-leetcode fa-2x">
+      <a class="text-orange-600" href="https://code.com">
+       <i class="fas fa-code fa-2x">
        </i>
       </a>
       <a class="text-red-600" href="mailto:showrin@example.com">
