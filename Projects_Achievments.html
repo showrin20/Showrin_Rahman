@@ -1,0 +1,217 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <link href="images/imag.png" rel="icon" type="image/png"/>
+  <title>
+   Showrin Rahman
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+   <script>
+    // Tailwind Configuration
+        tailwind.config = {
+            darkMode: 'class', // Enable dark mode using the class strategy
+            theme: {
+                extend: {},
+            },
+        };
+
+        // Dark Mode Toggle Script
+        function toggleTheme() {
+            const html = document.documentElement; // Target the <html> element
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark'); // Remove dark mode
+                localStorage.setItem('theme', 'light'); // Save preference to localStorage
+            } else {
+                html.classList.add('dark'); // Enable dark mode
+                localStorage.setItem('theme', 'dark'); // Save preference to localStorage
+            }
+        }
+
+        // Apply the saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        });
+   </script>
+  </link>
+ </head>
+ <body class="bg-gray-100 dark:bg-gray-900 font-sans">
+  <div class="flex flex-col md:flex-row justify-center">
+   <!-- Sidebar -->
+   <div class="bg-white dark:bg-gray-800 h-screen w-full md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center">
+    <div class="text-center mb-8">
+     <a href="index.html">
+      <img alt="An animated image of Showrin Rahman" class="mx-auto" src="images/me video.gif" width="150"/>
+     </a>
+    </div>
+    <nav class="space-y-4 text-center">
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#About">
+      About
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Education">
+      Education
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Experience">
+      Experience
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Projects">
+      Projects
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Skills">
+      Skills
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Awards">
+      Awards
+     </a>
+    </nav>
+    <div class="text-center mt-8">
+     <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg" onclick="toggleTheme()">
+      Toggle Theme
+     </button>
+    </div>
+   </div>
+   <!-- Main Content -->
+   <div class="flex-1 p-6 md:ml-96">
+    <!-- Banner -->
+    <div class="mb-12">
+     <img alt="Banner image with abstract design and vibrant colors" class="w-full max-w-4xl mx-auto rounded-lg" src="images/quotes1.jpg" />
+    </div>
+    <!-- Social Section -->
+    <section class="social mb-12">
+     <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+      Connect with Me
+     </h2>
+     <div class="flex justify-center space-x-4">
+      <a class="text-blue-600" href="https://www.facebook.com">
+       <i class="fab fa-facebook fa-2x">
+       </i>
+      </a>
+      <a class="text-blue-700" href="https://www.linkedin.com">
+       <i class="fab fa-linkedin fa-2x">
+       </i>
+      </a>
+      <a class="text-gray-800 dark:text-gray-300" href="https://www.github.com">
+       <i class="fab fa-github fa-2x">
+       </i>
+      </a>
+      <a class="text-orange-600" href="https://leetcode.com">
+       <i class="fas fa-leetcode fa-2x">
+       </i>
+      </a>
+      <a class="text-red-600" href="mailto:showrin@example.com">
+       <i class="fas fa-envelope fa-2x">
+       </i>
+      </a>
+      <a class="text-green-600" href="tel:+1234567890">
+       <i class="fas fa-phone fa-2x">
+       </i>
+      </a>
+      <a class="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" download="Showrin Rahman.pdf" href="Showrin Rahman.pdf">
+       Download CV
+      </a>
+     </div>
+    </section>
+    <!-- Projects Section -->
+    <section class="projects mb-12" id="Projects">
+     <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+      Projects
+     </h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="Detecting Vegetation Degradation with Satellite Imagery" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/xZsyQ8ee65tC7kUKtBDtp2KOd70TEAeoUSPyi3QSmW2EXW8nA.jpg" width="300"/>
+       <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+        Detecting Vegetation Degradation with Satellite Imagery using Deep Learning Techniques
+       </h3>
+       <p class="text-gray-700 dark:text-gray-300">
+        Developed a deep learning model to analyze satellite images for identifying vegetation health and degradation patterns.
+       </p>
+       <a class="text-blue-600 hover:underline" href="link-to-your-project">
+        View Project
+       </a>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="Optimizing Cyclone Evacuation Processes" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/BDGib6JmupY0Lphn3ES77cOBF4nW58PhMPpGLl3dJ0s5yifJA.jpg" width="300"/>
+       <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+        An Algorithmic Approach for Optimizing Cyclone Evacuation Processes using Agent-Based Simulation
+       </h3>
+       <p class="text-gray-700 dark:text-gray-300">
+        Implemented an agent-based model to simulate and optimize evacuation routes and processes during cyclone threats.
+       </p>
+       <a class="text-blue-600 hover:underline" href="link-to-your-project">
+        View Project
+       </a>
+      </div>
+      <!-- Add more project blocks as needed -->
+     </div>
+    </section>
+    <!-- Awards Section -->
+    <section class="awards mb-12" id="Awards">
+     <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+      Awards and Honors
+     </h2>
+     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="Academic Excellence Award" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/jvBfme30Tnv9TUcWDNnpV33SoUeQQsAXEh4d0Y7Hxp6CXW8nA.jpg" width="300"/>
+       <h3 class="font-bold text-gray-900 dark:text-gray-100">
+        Academic Excellence Award
+       </h3>
+       <p class="italic text-gray-700 dark:text-gray-300">
+        Awarded for maintaining a GPA above 3.8 during the academic year.
+       </p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="Hackathon Champion" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/6IfO86hWqYw1G67Tec7wfMMFODmIMZmriHekpF61f26HdZxfE.jpg" width="300"/>
+       <h3 class="font-bold text-gray-900 dark:text-gray-100">
+        Hackathon Champion
+       </h3>
+       <p class="italic text-gray-700 dark:text-gray-300">
+        Winner of the 2023 XYZ Hackathon for developing an innovative solution in 48 hours.
+       </p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="OSUN Undergraduate Mobility Scholarship" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/7IfO86hWqYw1G67Tec7wfMMFODmIMZmriHekpF61f26HdZxfE.jpg" width="300"/>
+       <h3 class="font-bold text-gray-900 dark:text-gray-100">
+        OSUN Undergraduate Mobility Scholarship, Spring 2024
+       </h3>
+       <p class="italic text-gray-700 dark:text-gray-300">
+        Fully funded for tuition, accommodation, living expenses, insurance, and travel at Bard College, USA.
+       </p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="2nd Runner-Up, 3rd Kibo Robot Programming Challenge 2022" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/8IfO86hWqYw1G67Tec7wfMMFODmIMZmriHekpF61f26HdZxfE.jpg" width="300"/>
+       <h3 class="font-bold text-gray-900 dark:text-gray-100">
+        2nd Runner-Up, 3rd Kibo Robot Programming Challenge 2022
+       </h3>
+       <p class="italic text-gray-700 dark:text-gray-300">
+        Japan Aerospace Exploration Agency (JAXA).
+       </p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="Top 5 Finalist, FOREWARN Disaster Hackathon 2.0" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/9IfO86hWqYw1G67Tec7wfMMFODmIMZmriHekpF61f26HdZxfE.jpg" width="300"/>
+       <h3 class="font-bold text-gray-900 dark:text-gray-100">
+        Top 5 Finalist, FOREWARN Disaster Hackathon 2.0
+       </h3>
+       <p class="italic text-gray-700 dark:text-gray-300">
+        Among 84 teams.
+       </p>
+      </div>
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+       <img alt="Top 15, Banglalink Womentor Program" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/10IfO86hWqYw1G67Tec7wfMMFODmIMZmriHekpF61f26HdZxfE.jpg" width="300"/>
+       <h3 class="font-bold text-gray-900 dark:text-gray-100">
+        Top 15, Banglalink Womentor Program
+       </h3>
+       <p class="italic text-gray-700 dark:text-gray-300">
+        Among 400 applicants.
+       </p>
+      </div>
+     </div>
+    </section>
+   </div>
+  </div>
+ </body>
+</html>

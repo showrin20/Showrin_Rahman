@@ -1,0 +1,98 @@
+
+
+
+<html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/imag.png" type="image/png">
+  <title>
+   Showrin Rahman
+  </title>
+
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+ <script>
+    // Tailwind Configuration
+    tailwind.config = {
+      darkMode: 'class', // Enable dark mode using the class strategy
+      theme: {
+        extend: {},
+      },
+    };
+
+    // Dark Mode Toggle Script
+    function toggleTheme() {
+      const html = document.documentElement; // Target the <html> element
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark'); // Remove dark mode
+        localStorage.setItem('theme', 'light'); // Save preference to localStorage
+      } else {
+        html.classList.add('dark'); // Enable dark mode
+        localStorage.setItem('theme', 'dark'); // Save preference to localStorage
+      }
+    }
+
+    // Apply the saved theme on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+      }
+    });
+  </script>
+ </head>
+
+
+
+
+
+
+
+ <body class="bg-gray-100 dark:bg-gray-900 font-sans">
+  <div class="flex flex-col md:flex-row justify-center">
+   <!-- Sidebar -->
+   <div class="bg-white dark:bg-gray-800 h-screen w-full md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center">
+    <div class="text-center mb-8">
+     <a href="index.html">
+        <img src="images/me video.gif" alt="An animated image" class="mx-auto" width="150" />
+
+     </a>
+    </div>
+    <nav class="space-y-4 text-center">
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#About">
+      About
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Education">
+      Education
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Experience">
+      Experience
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Projects">
+      Projects
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Skills">
+      Skills
+     </a>
+     <a class="block text-lg text-black dark:text-white hover:text-blue-600 dark:hover:text-blue-400" href="#Awards">
+      Awards
+     </a>
+    </nav>
+    <div class="text-center mt-8">
+     <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg" onclick="toggleTheme()">
+      Toggle Theme
+     </button>
+    </div>
+   </div>
+
+    <footer class="text-center text-white bg-black py-4">
+     <p>
+      © 2023 Showrin Rahman. All rights reserved.
+     </p>
+    </footer>
+   </div>
+  </div>
+ </body>
+</html>
