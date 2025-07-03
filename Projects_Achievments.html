@@ -44,26 +44,33 @@
   <div class="flex flex-col md:flex-row justify-center">
    <!-- Sidebar -->
 <!-- Sidebar -->
-<div id="sidebar" class="bg-white dark:bg-gray-800 h-screen w-0 md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center transition-all duration-300 overflow-hidden">
+<div id="sidebar" class="bg-white dark:bg-gray-800 h-screen w-80 md:w-96 fixed top-0 left-0 p-6 flex flex-col justify-center transition-transform duration-300 z-50 transform -translate-x-full md:translate-x-0">
+    <!-- Close button for mobile -->
+    <button id="close-sidebar-btn" class="md:hidden absolute top-4 right-4 p-2 text-gray-900 dark:text-gray-100">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
     <div class="text-center mb-8">
         <a href="index.html">
             <img src="images/me video.gif" alt="An animated image" class="mx-auto" width="150" />
         </a>
     </div>
     <nav class="space-y-4 text-center">
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html">About</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="index.html#Experience">Experience</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html">Education</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400" href="Projects_Achievments.html">Projects & Awards</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="index.html">About</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="index.html#Experience">Experience</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="education_co-curricular_activities.html">Education</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="Projects_Achievments.html">Research & Projects</a>
+        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="Projects_Achievments.html#Awards">Awards & Honors</a>
     </nav>
     <div class="text-center mt-8">
-        <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg" onclick="toggleTheme()">
+        <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="toggleTheme()">
             Toggle Theme
         </button>
     </div>
-  </div>
-  
+</div>
   <!-- Open/Close Buttons -->
   <button id="open-btn" class="fixed top-4 left-4 z-50 md:hidden bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full" onclick="toggleSidebar()">☰</button>
   <button id="close-btn" class="fixed top-4 left-4 z-50 md:hidden bg-gray-200 dark:bg-gray-700 text-black dark:text-white p-2 rounded-full hidden" onclick="toggleSidebar()">✕</button>
@@ -143,64 +150,185 @@
        Download CV
       </a>
      </div>
+
+
+
     </section>
     <!-- Projects Section -->
-    <section class="projects mb-12" id="Projects">
-     <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+
+    <!-- Projects Section -->
+<section class="projects mb-12" id="Projects">
+    <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
       Projects
-     </h2>
-     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Project 1 -->
+
+
       <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-       <img alt="Detecting Vegetation Degradation with Satellite Imagery" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/xZsyQ8ee65tC7kUKtBDtp2KOd70TEAeoUSPyi3QSmW2EXW8nA.jpg" width="300"/>
-       <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
-        Detecting Vegetation Degradation with Satellite Imagery using Deep Learning Techniques
-       </h3>
-       <p class="text-gray-700 dark:text-gray-300">
-        Developed a deep learning model to analyze satellite images for identifying vegetation health and degradation patterns.
-       </p>
-       <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE424/Task4">
-        View Project
-       </a>
+        <img 
+          alt="Satellite Imagery for Vegetation Degradation Detection" 
+          class="mb-4 rounded" 
+          height="150" 
+          width="150" 
+          src="images/2016-03-02.jpg"
+        />
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+            Masked Autoencoder and Mamba-Based Self-Supervised Segmentation of SAR Imagery for Riverbank Erosion Detection        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">
+          Research Paper
+        </span>
+        <p class="text-gray-700 dark:text-gray-300">
+           Our approach uses GANs for data gap reconstruction and a lightweight self-supervised MAE-Mamba framework for land-water segmentation to detect river erosion        </p>
+        <a class="text-blue-600 hover:underline" href="#">
+          Ongoing
+        </a>
+      </div>
+
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <img 
+          alt="Image Generation with Diffusion Models" 
+          class="mb-4 rounded" 
+          height="200" 
+          width="300" 
+          src="images/twig.png"
+        />
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          TWIG: Two-Step Image Generation Using Segmentation Masks to Prevent Copyright Infringement
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">
+            Research Paper
+        </span>
+        <p class="text-gray-700 dark:text-gray-300">
+          TWIG uses segmentation masks in diffusion models to generate copyright-free images (IFIP Privacy 2024).
+        </p>
+        <a class="text-blue-600 hover:underline" href="https://link.springer.com/chapter/10.1007/978-3-031-91054-8_4">
+          View Paper
+        </a>
+      </div>
+
+
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <img 
+          alt="Text-to-Image Synthesis with Text Layout Optimization" 
+          class="mb-4 rounded" 
+          height="200" 
+          width="300" 
+          src="images/text.png"
+        />
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          TextDiffuser-RL: Efficient and Robust Text Layout Optimization for High-Fidelity Text-to-Image Synthesis
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">
+          Research Paper
+        </span>
+        <p class="text-gray-700 dark:text-gray-300">
+          TextDiffuser-RL optimizes text layouts for high-fidelity text-to-image synthesis using reinforcement learning.
+        </p>
+        <a class="text-blue-600 hover:underline" href="https://arxiv.org/abs/2505.19291">
+          View Paper
+        </a>
+      </div>
+    
+
+
+
+      <!-- Project 2 -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <img alt="Riverbank Change Detection in the Jamuna River" class="mb-4 rounded" height="200" src="images/acdaas.png" width="300"/>
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          Riverbank Change Detection in the Jamuna River 
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Research Paper</span>
+        <p class="text-gray-700 dark:text-gray-300">
+            This study uses Sentinel-2 satellite imagery, remote sensing techniques, and machine learning to analyze riverbank changes in the Jamuna River Basin, Bangladesh.        </p>
+        <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/Coastline_defenders">
+          View Project
+        </a>
+      </div>
+
+
+
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <img alt="Detecting Vegetation Degradation with Satellite Imagery" class="mb-4 rounded" height="200" src="images/eurosat-overview.png" width="300"/>
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          Detecting Vegetation Degradation with Satellite Imagery using Deep Learning Techniques
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Project</span>
+        <p class="text-gray-700 dark:text-gray-300">
+          Developed a deep learning model to analyze satellite images for identifying vegetation health and degradation patterns.
+        </p>
+        <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE424/Task4">
+          View Project
+        </a>
+      </div>
+
+
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <img 
+          alt="Bangladeshi Mango Classification" 
+          class="mb-4 rounded" 
+          height="200" 
+          width="300" 
+          src="images/mango.jpeg"
+        />
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          MangoScan: A Bangladeshi Mango Classifier
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
+          Project
+        </span>
+        <p class="text-gray-700 dark:text-gray-300">
+          MangoScan classifies 10 Bangladeshi mango varieties using PyTorch and Streamlit with 95.05% accuracy.
+        </p>
+        <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/MangoScan">
+          View Project
+        </a>
       </div>
       <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-       <img alt="Optimizing Cyclone Evacuation Processes" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/BDGib6JmupY0Lphn3ES77cOBF4nW58PhMPpGLl3dJ0s5yifJA.jpg" width="300"/>
-       <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
-        An Algorithmic Approach for Optimizing Cyclone Evacuation Processes using Agent-Based Simulation
-       </h3>
-       <p class="text-gray-700 dark:text-gray-300">
-        Implemented an agent-based model to simulate and optimize evacuation routes and processes during cyclone threats.
-       </p>
-       <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE474/submission4">
-        View Project
-       </a>
+        <img 
+          alt="Part-of-Speech Tagging with Neural Networks" 
+          class="mb-4 rounded" 
+          height="200" 
+          width="300" 
+          src="images/3.PNG"
+        />
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          Token-Level Part-of-Speech Tagging Using Recurrent Neural Networks on the POS 1 Dataset
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">
+          Project
+        </span>
+        <p class="text-gray-700 dark:text-gray-300">
+          BiLSTM model achieves 97% accuracy in token-level POS tagging on the POS 1 dataset.
+        </p>
+        <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE440">
+          View Project
+        </a>
       </div>
-         <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-       <img alt="Optimizing Cyclone Evacuation Processes" class="mb-4 rounded" height="200" src="images/Coastline.jpeg" width="300"/>
-       <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
-        Predictive Jamuna Riverbank changes Mapping using Google Earth Engine, HTML, CSS, JavaScript,
-        Leaflet.js, Machine Learning  
-       </h3>
-       <p class="text-gray-700 dark:text-gray-300">
-
-        To address the critical issue of riverbank erosion along the Jamuna River, this project proposes a predictive modeling approach using satellite imagery 
-
-
-     </p>
-       <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/Coastline_defenders">
-        View Project
-       </a>
+      <!-- Project 3 -->
+      <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        <img alt="Optimizing Cyclone Evacuation Processes" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/BDGib6JmupY0Lphn3ES77cOBF4nW58PhMPpGLl3dJ0s5yifJA.jpg" width="300"/>
+        <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">
+          An Algorithmic Approach for Optimizing Cyclone Evacuation Processes using Agent-Based Simulation
+        </h3>
+        <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">Project</span>
+        <p class="text-gray-700 dark:text-gray-300">
+          Implemented an agent-based model to simulate and optimize evacuation routes and processes during cyclone threats.
+        </p>
+        <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE474/submission4">
+          View Project
+        </a>
       </div>
-        
-        
-        
-        
-     </div>
+    </div>
+
+
+    
 
 
 
-
-
-    </section>
+  </section>
 
 
 
