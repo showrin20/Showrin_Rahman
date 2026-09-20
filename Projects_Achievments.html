@@ -1,350 +1,373 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="images/imag.png" rel="icon" type="image/png">
-  <title>Showrin Rahman</title>
+  <title>Publications & Projects — Showrin Rahman</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <script>
-    // Tailwind Configuration
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {},
-      },
-    };
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-    // Dark Mode Toggle Script with System Preference
-    function toggleTheme() {
-      const html = document.documentElement;
-      if (html.classList.contains('dark')) {
-        html.classList.remove('dark');
-        localStorage.setItem('theme', 'light');
-      } else {
-        html.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    // Apply saved theme or system preference on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        document.documentElement.classList.add(savedTheme);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.classList.add('dark');
-      }
+    .page-enter {
+      animation: pageIn 0.45s ease both;
+    }
 
-      // Mobile Menu Toggle
+    body.page-exit {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem('theme');
+      if (saved) document.documentElement.classList.add(saved);
+      else if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');
+
+      document.querySelector('.flex-1').classList.add('page-enter');
+
+      document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href') || '';
+        if (!href.startsWith('#') && !href.startsWith('mailto') && !href.startsWith('javascript') && link.hostname === location.hostname && href !== '') {
+          link.addEventListener('click', function (e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            document.body.classList.add('page-exit');
+            const target = this.href;
+            setTimeout(() => { window.location.href = target; }, 300);
+          });
+        }
+      });
+
       const menuBtn = document.getElementById('mobile-menu-btn');
       const closeBtn = document.getElementById('close-sidebar-btn');
       const sidebar = document.getElementById('sidebar');
       const overlay = document.getElementById('overlay');
-
-      menuBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('-translate-x-full');
-        overlay.classList.toggle('hidden');
-      });
-
-      closeBtn.addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-      });
-
-      overlay.addEventListener('click', () => {
-        sidebar.classList.add('-translate-x-full');
-        overlay.classList.add('hidden');
-      });
+      menuBtn.addEventListener('click', () => { sidebar.classList.toggle('-translate-x-full'); overlay.classList.toggle('hidden'); });
+      closeBtn.addEventListener('click', () => { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); });
+      overlay.addEventListener('click', () => { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); });
     });
   </script>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 font-sans">
   <div class="flex flex-col md:flex-row justify-center">
-    <!-- Mobile Menu Button -->
-    <button id="mobile-menu-btn" class="md:hidden fixed top-4 left-4 z-50 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-2 rounded-lg shadow-lg" aria-label="Open menu">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
 
-    <!-- Overlay for mobile -->
+    <!-- Mobile Top Bar -->
+    <header
+      class="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow flex items-center px-3 h-14">
+      <button id="mobile-menu-btn" class="p-2 text-gray-700 dark:text-gray-200" aria-label="Open menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+      <div class="ml-2 flex-1 min-w-0">
+        <p class="font-semibold text-sm text-gray-900 dark:text-gray-100 truncate">Publications & Projects</p>
+        <p class="text-xs text-blue-600 dark:text-blue-400">Showrin Rahman</p>
+      </div>
+      <a href="index.html"
+        class="ml-2 flex-shrink-0 px-3 py-1.5 bg-gray-700 text-white text-xs font-semibold rounded-lg">← About</a>
+    </header>
+
+    <!-- Overlay -->
     <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
 
     <!-- Sidebar -->
-    <div id="sidebar" class="bg-white dark:bg-gray-800 h-screen w-64 fixed top-0 left-0 p-6 flex flex-col justify-center transition-transform duration-300 z-50 transform -translate-x-full md:translate-x-0">
-      <button id="close-sidebar-btn" class="md:hidden absolute top-4 right-4 p-2 text-gray-900 dark:text-gray-100" aria-label="Close menu">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-        </svg>
-      </button>
-      <div class="text-center mb-8">
-        <a href="index.html">
-          <img src="images/me video.gif" alt="Animated profile image of Showrin Rahman" class="mx-auto" width="150">
-        </a>
+    <div id="sidebar"
+      class="bg-white dark:bg-gray-800 h-screen w-64 fixed top-0 left-0 p-6 flex flex-col justify-between transition-transform duration-300 z-50 transform -translate-x-full md:translate-x-0">
+      <div>
+        <button id="close-sidebar-btn" class="md:hidden absolute top-4 right-4 p-2 text-gray-900 dark:text-gray-100"
+          aria-label="Close menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        <div class="text-center mb-8 pt-2">
+          <a href="index.html">
+            <img src="images/me video.gif" alt="Showrin Rahman" class="mx-auto rounded-full" width="110">
+          </a>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">PhD Applicant · Fall 2027</p>
+        </div>
+        <nav class="space-y-3 text-center">
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#About">About</a>
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#ResearchInterests">Research Interests</a>
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#Publications">Publications</a>
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#Projects">Projects</a>
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#Experience">Experience</a>
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#Education">Education</a>
+          <a class="block text-base text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="index.html#Awards">Awards</a>
+        </nav>
       </div>
-      <nav class="space-y-4 text-center">
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="index.html">About</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="index.html#Experience">Experience</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="education_co-curricular_activities.html">Education</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="Projects_Achievments.html">Research & Projects</a>
-        <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="awards.html">Awards & Honors</a>
-      </nav>
-      <div class="text-center mt-8">
-        <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="toggleTheme()">
+      <div class="space-y-2">
+        <a href="mailto:showrinrahman26@gmail.com"
+          class="flex items-center justify-center gap-2 w-full py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+          <i class="fas fa-envelope"></i> Contact for PhD
+        </a>
+        <a href="CV of Showrin Rahman.pdf" download
+          class="flex items-center justify-center gap-2 w-full py-2 bg-gray-700 text-white text-sm font-medium rounded-lg hover:bg-gray-800">
+          <i class="fas fa-file-pdf"></i> Download CV
+        </a>
+        <button onclick="toggleTheme()"
+          class="w-full py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white text-sm rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
           Toggle Theme
         </button>
       </div>
     </div>
 
-
-
-
-    
     <!-- Main Content -->
-    <div class="flex-1 p-6 md:ml-64">
-      <!-- Banner -->
-      <div class="mb-12">
-        <a href="index.html">
-          <img alt="Banner image with abstract design and vibrant colors" class="w-full max-w-4xl mx-auto rounded-lg" src="images/quotes1.jpg">
-        </a>
-      </div>
+    <div class="flex-1 px-4 py-6 md:p-12 pt-14 md:pt-12 md:ml-64 max-w-4xl">
 
-      <!-- Social Section -->
-      <section class="social mb-12">
-        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Connect with Me</h2>
-        <div class="flex justify-center space-x-4">
-          <a class="text-blue-600" href="https://www.facebook.com/showrin.rahman.5" aria-label="Facebook">
-            <i class="fab fa-facebook fa-2x"></i>
-          </a>
-          <a class="text-blue-700" href="https://www.linkedin.com/in/showrin-rahman" aria-label="LinkedIn">
-            <i class="fab fa-linkedin fa-2x"></i>
-          </a>
-          <a class="text-gray-800 dark:text-gray-300" href="https://github.com/showrin20" aria-label="GitHub">
-            <i class="fab fa-github fa-2x"></i>
-          </a>
-          <a class="text-orange-600" href="https://leetcode.com/u/showrinrahman15/" aria-label="LeetCode">
-            <i class="fas fa-code fa-2x"></i>
-          </a>
-          <a class="text-red-600" href="mailto:showrinrahman66@gmail.com" aria-label="Email">
-            <i class="fas fa-envelope fa-2x"></i>
-          </a>
-          <a class="text-green-600" href="tel:+8801715075893" aria-label="Phone">
-            <i class="fas fa-phone fa-2x"></i>
-          </a>
-          <a class="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" download="CV of Showrin Rahman.pdf" href="CV of Showrin Rahman.pdf">Download CV</a>
+      <!-- Publications -->
+      <section class="mb-12" id="Publications">
+        <h1 class="text-3xl font-bold mb-1 text-gray-900 dark:text-gray-100">Publications</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-8">Springer &bull; IEEE &bull; arXiv</p>
+
+        <div class="space-y-6">
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-green-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900 px-2 py-0.5 rounded">Springer
+                IFIP AICT 2024</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Book Chapter · Peer-Reviewed</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">TWIG: Two-Step Image Generation Using Segmentation
+              Masks to Prevent Copyright Infringement</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman et al. — IFIP AICT, Springer,
+              2024</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">A two-step diffusion pipeline where segmentation
+              masks decouple structure from texture, generating copyright-free training images without reproducing
+              protected visual content.</p>
+            <div class="mt-3">
+              <a class="text-blue-600 hover:underline text-sm font-medium"
+                href="https://link.springer.com/chapter/10.1007/978-3-031-91054-8_4" target="_blank">Springer Link
+                &rarr;</a>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-purple-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900 px-2 py-0.5 rounded">IEEE
+                ACDSA 2025</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Conference Paper · Peer-Reviewed</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Riverbank Change Detection in the Jamuna River Basin,
+              Bangladesh: A Remote Sensing and Machine Learning Approach</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman et al. — IEEE ACDSA, 2025</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Integrates Sentinel-2 satellite imagery, spectral
+              indices (NDWI, NDVI), and ML classifiers in Google Earth Engine to analyze and predict multi-temporal
+              riverbank changes in the Jamuna basin — directly relevant to flood risk and erosion monitoring in
+              climate-vulnerable Bangladesh.</p>
+            <div class="mt-3">
+              <a class="text-blue-600 hover:underline text-sm font-medium"
+                href="https://ieeexplore.ieee.org/document/11166394" target="_blank">IEEE Xplore &rarr;</a>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-orange-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900 px-2 py-0.5 rounded">arXiv
+                2025 — Under Review</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Preprint · Under Submission</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">TextDiffuser-RL: Efficient and Robust Text Layout
+              Optimization for High-Fidelity Text-to-Image Synthesis</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman et al. — arXiv:2505.19291,
+              2025</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Introduces RL-guided character-level text layout
+              optimization for diffusion-based text-to-image models, improving glyph rendering fidelity and spatial
+              coherence over existing baselines.</p>
+            <div class="mt-3 flex flex-wrap gap-4 items-center">
+              <a class="text-blue-600 hover:underline text-sm font-medium" href="https://arxiv.org/abs/2505.19291"
+                target="_blank">arXiv &rarr;</a>
+              <span class="text-xs text-gray-400">arXiv:2505.19291</span>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-gray-400">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">Undergraduate
+                Thesis — In Progress</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Ongoing Research</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Masked Autoencoder and Mamba-Based Self-Supervised
+              Segmentation of SAR Imagery for Riverbank Erosion Detection</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman — Undergraduate Thesis, BRAC
+              University, 2025</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Develops a self-supervised framework combining
+              Masked Autoencoders and Mamba state-space models for semantic segmentation of Sentinel-1 SAR imagery to
+              automate land-water boundary delineation and detect riverbank erosion — without requiring dense manual
+              annotation. GAN-based reconstruction is used to fill temporal data gaps in the SAR time series.</p>
+          </div>
+
         </div>
       </section>
 
-      <!-- Projects Section -->
-      <section class="projects mb-12" id="Projects">
-        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Research and Projects</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Project 1 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Satellite Imagery for Vegetation Degradation Detection" class="mb-4 rounded" height="150" width="150" src="images/2016-03-02.jpg">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">Masked Autoencoder and Mamba-Based Self-Supervised Segmentation of SAR Imagery for Riverbank Erosion Detection</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Research Paper</span>
-            <p class="text-gray-700 dark:text-gray-300">Our approach uses GANs for data gap reconstruction and a lightweight self-supervised MAE-Mamba framework for land-water segmentation to detect river erosion</p>
-            <a class="text-blue-600 hover:underline" href="#">Ongoing</a>
-          </div>
+      <!-- Research & ML Projects -->
+      <section class="mb-12" id="Projects">
+        <h2 class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Research & ML Projects</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Implementation and experimental work underlying or
+          adjacent to publications.</p>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-
-          <!-- Project 2 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Image Generation with Diffusion Models" class="mb-4 rounded" height="200" width="300" src="images/twig.png">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">TWIG: Two-Step Image Generation Using Segmentation Masks to Prevent Copyright Infringement</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Research Paper</span>
-            <p class="text-gray-700 dark:text-gray-300">TWIG uses segmentation masks in diffusion models to generate copyright-free images (IFIP Privacy 2024).</p>
-            <a class="text-blue-600 hover:underline" href="https://link.springer.com/chapter/10.1007/978-3-031-91054-8_4">View Paper</a>
-          </div>
-          <!-- Project 3 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Deblurring with Multi-Scale Attention" class="mb-4 rounded" height="200" width="300" src="images/msfaa.jpeg">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">Multi-Scale Feature Fusion with Adaptive Attention for Robust Image Deblurring</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Research Paper</span>
-            <p class="text-gray-700 dark:text-gray-300">MSFAA is a deep learning framework for deblurring images with spatially varying blur using multi-scale feature fusion and adaptive attention. It introduces the CAFI module to focus computation on heavily blurred regions, achieving +2.1 dB PSNR, +0.043 SSIM, and 18% lower compute cost over SOTA methods (IEEE EUROCON 2025).</p>
-            <a class="text-blue-600 hover:underline" href="https://ieeexplore.ieee.org/document/11073437">View Paper</a>
-          </div>
-          <!-- Project 4 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Text-to-Image Synthesis with Text Layout Optimization" class="mb-4 rounded" height="200" width="300" src="images/text.png">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">TextDiffuser-RL: Efficient and Robust Text Layout Optimization for High-Fidelity Text-to-Image Synthesis</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Research Paper</span>
-            <p class="text-gray-700 dark:text-gray-300">TextDiffuser-RL optimizes text layouts for high-fidelity text-to-image synthesis using reinforcement learning.</p>
-            <a class="text-blue-600 hover:underline" href="https://arxiv.org/abs/2505.19291">View Paper</a>
-          </div>
-          <!-- Project 5 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Riverbank Change Detection in the Jamuna River" class="mb-4 rounded" height="200" src="images/1072.png" width="300">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">Riverbank Change Detection in the Jamuna River Basin, Bangladesh: A Remote Sensing and Machine Learning Approach
-</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Research Paper</span>
-            <p class="text-gray-700 dark:text-gray-300">This study uses Sentinel-2 satellite imagery, remote sensing techniques, and machine learning to analyze riverbank changes in the Jamuna River Basin, Bangladesh.</p>
-            <a class="text-blue-600 hover:underline" href="https://ieeexplore.ieee.org/document/11166394">View Paper</a>
-          </div>
-          <!-- Project 6 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Detecting Vegetation Degradation with Satellite Imagery" class="mb-4 rounded" height="200" src="images/eurosat-overview.png" width="300">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">Detecting Vegetation Degradation with Satellite Imagery using Deep Learning Techniques</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Project</span>
-            <p class="text-gray-700 dark:text-gray-300">Developed a deep learning model to analyze satellite images for identifying vegetation health and degradation patterns.</p>
-            <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE424/Task4">View Project</a>
-          </div>
-          <!-- Project 7 -->
-
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <img alt="CrisisCrew Fire Emergency System" class="mb-4 rounded" height="200" width="300" src="images/crisiscrewbot.png">
-  <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">CrisisCrewBot: Fire Emergency Response System</h3>
-  <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-red-600 rounded-full">Project</span>
-  <p class="text-gray-700 dark:text-gray-300">
-    AI-powered fire emergency data collection system for Dhaka  built with ReactJS, Gemini AI, and Google Sheets integration for real-time reporting.
-  </p>
-  <div class="mt-3 space-x-4">
-    <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/crisiscrew-bot" target="_blank">View Project</a>
-    <a class="text-blue-600 hover:underline" href="https://crisiscrew-bot.vercel.app/" target="_blank">Live Demo</a>
-  </div>
-</div>
-
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Bangladeshi Mango Classification" class="mb-4 rounded" height="200" width="300" src="images/mango.jpeg">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">MangoScan: A Bangladeshi Mango Classifier</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">Project</span>
-            <p class="text-gray-700 dark:text-gray-300">MangoScan classifies 10 Bangladeshi mango varieties using PyTorch and Streamlit with 95.05% accuracy.</p>
-            <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/MangoScan">View Project</a>
-          </div>
-          <!-- Project 8 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Part-of-Speech Tagging with Neural Networks" class="mb-4 rounded" height="200" width="300" src="images/3.PNG">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">Token-Level Part-of-Speech Tagging Using Recurrent Neural Networks on the POS 1 Dataset</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">Project</span>
-            <p class="text-gray-700 dark:text-gray-300">BiLSTM model achieves 97% accuracy in token-level POS tagging on the POS 1 dataset.</p>
-            <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE440">View Project</a>
-          </div>
-                   <!-- Project 8 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Part-of-Speech Tagging with Neural Networks" class="mb-4 rounded" height="200" width="300" src="images/thesisconnect.png">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">ThesisConnect</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">Project</span>
-            <p class="text-gray-700 dark:text-gray-300">ThesisConnect is a complete ecosystem for academic collaboration, research sharing, and scholarly communication — designed specifically for thesis and research work management. Built with a modern tech stack (React, Node.js, Express, MongoDB).
-</p>
-            
-            <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/ThesisConnect">View Project</a>
-           <a class="text-blue-600 hover:underline ml-4" href="https://thesis-connect.vercel.app/" target="_blank">Try It</a>
-
-          </div>
-          <!-- Project 9 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="CrisisCrew Idea Pitch" class="mb-4 rounded" height="200" src="images/1.png" width="300">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">দুম্যগ প্রহরী -- CrisisCrew</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-blue-600 rounded-full">Idea Pitch</span>
-            <p class="text-gray-700 dark:text-gray-300">A tech-driven social entrepreneurship solution addressing fire safety and disaster management in Bangladesh. Selected as a Bracu Hult Prize 2025 Semi-Finalist.</p>
-            <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/CrisisCrew30/tree/main">View Project</a>
-          </div>
-          <!-- Project 10 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <img alt="Optimizing Cyclone Evacuation Processes" class="mb-4 rounded" height="200" src="https://storage.googleapis.com/a1aa/image/BDGib6JmupY0Lphn3ES77cOBF4nW58PhMPpGLl3dJ0s5yifJA.jpg" width="300">
-            <h3 class="font-bold mb-2 text-gray-900 dark:text-gray-100">An Algorithmic Approach for Optimizing Cyclone Evacuation Processes using Agent-Based Simulation</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-600 rounded-full">Project</span>
-            <p class="text-gray-700 dark:text-gray-300">Implemented an agent-based model to simulate and optimize evacuation routes and processes during cyclone threats.</p>
-            <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/BracU_Courses/tree/main/CSE474/submission4">View Project</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Fun Projects Section -->
-  
-      <section class="fun-projects mb-12" id="FunProjects">
-        <h2 class="text-2xl font-bold mb-6 text-grey-600 dark:text-white">🌟 Fun Projects</h2>
-      
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          <!-- Project 1 -->
-   <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <h4 class="text-xl md:text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-purple-400 to-blue-500 drop-shadow-xl animate-pulse">
-    LLM Resource Tracker
-  </h4>
-  <h3 class="font-bold mb-2 text-purple-700 dark:text-purple-300">
-    🌱 LLM Resource Tracker – Monitor AI Resource Usage
-  </h3>
-  <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-green-500 rounded-full">
-    Browser Extension
-  </span>
-  <p class="text-gray-700 dark:text-gray-300">
-    A privacy-first browser extension that estimates the token, energy, and water consumption of LLM interactions entirely on-device. Supports ChatGPT, Claude, and Gemini with automatic tracking, manual logging for API/local models, interactive dashboards, and an ambient water visualization—all without sending data outside your browser.
-  </p>
-  <div class="mt-4">
-    <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/LLM-Resource-Tracker" target="_blank">
-      View Project
-    </a>
-  </div>
-</div>
-      
-          <!-- Project 2 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h4 class="text-xl md:text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-400 to-blue-500 drop-shadow-xl animate-pulse">
-              BrushStrokes
-            </h4>
-            <h3 class="font-bold mb-2 text-blue-700 dark:text-blue-300">✨ BrushStrokes – Air Drawing App</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-pink-500 rounded-full">Fun Project</span>
-            <p class="text-gray-700 dark:text-gray-300">
-              BrushStrokes is a futuristic web drawing app by Showrin Rahman that lets you paint in the air using hand-tracking via webcam and MediaPipe Hands.
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="Certificate of R&D Collaboration — FlowPay, 276 Holdings Co., Ltd."
+              class="mb-4 rounded w-full object-contain max-h-48 bg-gray-50 dark:bg-gray-700" src="images/Korea.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">FlowPay — AI Solution for Automatic Document
+              Recognition</h3>
+            <div class="flex flex-wrap gap-2 mt-1 mb-2">
+              <span class="px-2 py-0.5 text-xs font-semibold text-white bg-blue-700 rounded-full">Industry R&D</span>
+              <span class="px-2 py-0.5 text-xs font-semibold text-white bg-gray-600 rounded-full">OCR · IDP</span>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+              276 Holdings Co., Ltd. — AI &amp; Data Division &nbsp;&bull;&nbsp; Seoul, South Korea &nbsp;&bull;&nbsp;
+              Jul 2025 – Present<br>
+              Role: ML &amp; DL Engineer, AI Researcher (Independent Researcher)
             </p>
-            <div class="mt-4">
-              <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/paint" target="_blank">View Project</a>
-              <a class="text-blue-600 hover:underline ml-4" href="https://paint-five-tau.vercel.app/" target="_blank">Try It</a>
-            </div>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Developed OCR pipelines using EasyOCR and Tesseract for
+              Automatic Document Recognition for FlowPay. Applied document-specific image preprocessing and MSFAA-based
+              deblurring to improve OCR accuracy on degraded business documents. R&amp;D area: Computer Vision and
+              Intelligent Document Processing (IDP).</p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2 italic">Certificate of R&amp;D Collaboration issued
+              Aug 2025 · 276 Holdings Co., Ltd.</p>
           </div>
-      
-          <!-- Project 3 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h4 class="text-xl md:text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-purple-400 to-blue-500 drop-shadow-xl animate-pulse">
-              Political Violence Incident Tracker            </h4>
-            <h3 class="font-bold mb-2 text-purple-700 dark:text-purple-300">✨Political Violence Incident Tracker</h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-pink-500 rounded-full">Fun Project</span>
-            <p class="text-gray-700 dark:text-gray-300">
-              A real-time web app to monitor political violence incidents across Bangladesh. Visualize events on an interactive map, filter by party/location/casualties, and trigger live crawlers to fetch breaking news.
 
-            </p>
-            <div class="mt-4">
-              <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/Political-violence-tracker" target="_blank">View Project</a>
-              <a class="text-blue-600 hover:underline ml-4" href="https://political-violence-tracker.vercel.app/" target="_blank">Try It</a>
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Vegetation Degradation Detection via Satellite
+              Imagery</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-blue-600 rounded-full">Remote
+              Sensing · Deep Learning</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">CNN-based classifier on EuroSAT satellite data to
+              identify vegetation health and degradation patterns at scale.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/BracU_Courses/tree/main/CSE424/Task4" target="_blank">GitHub &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Cyclone Evacuation Optimization via Agent-Based
+              Simulation</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-blue-600 rounded-full">Multi-Agent
+              Systems · Simulation</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Agent-based model simulating and optimizing evacuation
+              routes during cyclone threats — applied AI for disaster response.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/BracU_Courses/tree/main/CSE474/submission4" target="_blank">GitHub
+              &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">BiLSTM Part-of-Speech Tagger</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded-full">NLP
+              · Sequence Modeling</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Bidirectional LSTM achieves <strong>97%
+                accuracy</strong> on token-level POS tagging (POS 1 dataset). Demonstrates sequence-to-sequence neural
+              labeling.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/BracU_Courses/tree/main/CSE440" target="_blank">GitHub &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">MangoScan — Fine-Grained Image Classifier</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded-full">Computer
+              Vision · PyTorch</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Fine-grained classifier for 10 Bangladeshi mango
+              varieties using PyTorch transfer learning — <strong>95.05% accuracy</strong>. Streamlit demo.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/MangoScan" target="_blank">GitHub &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">CrisisCrewBot — AI Emergency Response System</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-red-600 rounded-full">LLM
+              Application · React</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">AI-powered fire emergency data collection system for
+              Dhaka, integrating Gemini AI and real-time Google Sheets reporting.</p>
+            <div class="flex gap-3 mt-2">
+              <a class="text-blue-600 hover:underline text-sm" href="https://github.com/showrin20/crisiscrew-bot"
+                target="_blank">GitHub &rarr;</a>
+              <a class="text-blue-600 hover:underline text-sm" href="https://crisiscrew-bot.vercel.app/"
+                target="_blank">Live Demo</a>
             </div>
           </div>
-      
-          <!-- Project 4 -->
-          <div class="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-            <h4 class="text-xl md:text-2xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-green-500 via-purple-400 to-blue-500 drop-shadow-xl animate-pulse">
-            MapBD
-            </h4>
-            <h3 class="font-bold mb-2 text-purple-700 dark:text-green-300">✨  Location Monitoring System
-            </h3>
-            <span class="inline-block mb-2 px-2 py-1 text-sm font-semibold text-white bg-pink-500 rounded-full">Fun Project</span>
-            <p class="text-gray-700 dark:text-gray-300">
-              A real-time environmental and location monitoring dashboard with map-based tracking, weather data, air quality index, and historical logs            </p>
-            <div class="mt-4">
-              <a class="text-blue-600 hover:underline" href="https://github.com/showrin20/mapbd" target="_blank">View Project</a>
-              <a class="text-blue-600 hover:underline ml-4" href="https://mapbd.vercel.app/" target="_blank">Try It</a>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">ThesisConnect — Academic Collaboration Platform</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded-full">Full
+              Stack · Research Tools</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Ecosystem for thesis management, research sharing, and
+              scholarly communication. Built with React, Node.js, Express, MongoDB.</p>
+            <div class="flex gap-3 mt-2">
+              <a class="text-blue-600 hover:underline text-sm" href="https://github.com/showrin20/ThesisConnect"
+                target="_blank">GitHub &rarr;</a>
+              <a class="text-blue-600 hover:underline text-sm" href="https://thesis-connect.vercel.app/"
+                target="_blank">Live Demo</a>
             </div>
           </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">LLM Resource Tracker</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-purple-600 rounded-full">Browser
+              Extension · Sustainable AI</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Privacy-first browser extension estimating token,
+              energy, and water consumption of LLM sessions on-device. Supports ChatGPT, Claude, Gemini.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/LLM-Resource-Tracker" target="_blank">GitHub &rarr;</a>
+          </div>
+
         </div>
       </section>
-      
 
-
-
-
-
-
-
-
-
+      <footer class="text-center text-white bg-gray-900 py-6 rounded-lg">
+        <p class="text-sm mb-1">Seeking PhD, funded MSc, GRA &amp; research collaboration positions for Fall 2027 /
+          Spring 2028</p>
+        <p class="text-sm mb-2"><a href="mailto:showrinrahman26@gmail.com"
+            class="underline hover:text-blue-300">showrinrahman26@gmail.com</a></p>
+        <p class="text-xs text-gray-500">© 2025 Showrin Rahman</p>
+      </footer>
 
     </div>
   </div>
 </body>
+
 </html>

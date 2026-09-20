@@ -1,396 +1,844 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="images/imag.png" type="image/png">
-    <title>Showrin Rahman</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <script>
-        // Tailwind Configuration
-        tailwind.config = {
-            darkMode: 'class', // Enable dark mode using the class strategy
-            theme: {
-                extend: {},
-            },
-        };
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="images/imag.png" type="image/png">
+  <title>Showrin Rahman — PhD Applicant</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
 
-        // Dark Mode Toggle Script
-        function toggleTheme() {
-            const html = document.documentElement; // Target the <html> element
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark'); // Remove dark mode
-                localStorage.setItem('theme', 'light'); // Save preference to localStorage
-            } else {
-                html.classList.add('dark'); // Enable dark mode
-                localStorage.setItem('theme', 'dark'); // Save preference to localStorage
-            }
+    @keyframes pageIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page-enter {
+      animation: pageIn 0.45s ease both;
+    }
+
+    body.page-exit {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  </style>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      if (localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+      document.getElementById('main-content').classList.add('page-enter');
+
+      /* cross-page fade-out */
+      document.querySelectorAll('a[href]').forEach(link => {
+        const href = link.getAttribute('href') || '';
+        if (!href.startsWith('#') && !href.startsWith('mailto') && !href.startsWith('javascript') && link.hostname === location.hostname && href !== '') {
+          link.addEventListener('click', function (e) {
+            if (e.ctrlKey || e.metaKey || e.shiftKey) return;
+            e.preventDefault();
+            document.body.classList.add('page-exit');
+            const target = this.href;
+            setTimeout(() => { window.location.href = target; }, 300);
+          });
         }
-
-        // Apply the saved theme on page load
-        document.addEventListener('DOMContentLoaded', () => {
-            if (localStorage.getItem('theme') === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
-        });
-    </script>
+      });
+    });
+  </script>
 </head>
 
 <body class="bg-gray-100 dark:bg-gray-900 font-sans">
-    <div class="flex flex-col md:flex-row justify-center">
-      <!-- Mobile Menu Button -->
-      <button id="mobile-menu-btn" class="md:hidden fixed top-4 left-4 z-50 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 p-2 rounded-lg shadow-lg" aria-label="Open menu">
+  <div class="flex flex-col md:flex-row justify-center">
+
+    <!-- Mobile Top Bar -->
+    <header
+      class="md:hidden fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow flex items-center px-3 h-14">
+      <button id="mobile-menu-btn" class="p-2 text-gray-700 dark:text-gray-200" aria-label="Open menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
-  
-      <!-- Overlay for mobile -->
-      <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
-  
-      <!-- Sidebar -->
-      <div id="sidebar" class="bg-white dark:bg-gray-800 h-screen w-64 fixed top-0 left-0 p-6 flex flex-col justify-center transition-transform duration-300 z-50 transform -translate-x-full md:translate-x-0">
-        <button id="close-sidebar-btn" class="md:hidden absolute top-4 right-4 p-2 text-gray-900 dark:text-gray-100" aria-label="Close menu">
+      <div class="ml-2 flex-1 min-w-0">
+        <p class="font-semibold text-sm text-gray-900 dark:text-gray-100 truncate">Showrin Rahman</p>
+        <p class="text-xs text-blue-600 dark:text-blue-400">PhD Applicant · Fall 2027</p>
+      </div>
+      <a href="mailto:showrinrahman26@gmail.com"
+        class="ml-2 flex-shrink-0 px-3 py-1.5 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700">
+        Contact
+      </a>
+    </header>
+
+    <!-- Overlay -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <!-- Sidebar -->
+    <div id="sidebar"
+      class="bg-white dark:bg-gray-800 h-screen w-64 fixed top-0 left-0 p-6 flex flex-col justify-between transition-transform duration-300 z-50 transform -translate-x-full md:translate-x-0 overflow-y-auto">
+      <div>
+        <button id="close-sidebar-btn" class="md:hidden absolute top-4 right-4 p-2 text-gray-900 dark:text-gray-100"
+          aria-label="Close menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <div class="text-center mb-8">
-          <a href="index.html">
-            <img src="images/me video.gif" alt="Animated profile image of Showrin Rahman" class="mx-auto" width="150">
+        <div class="text-center mb-6 pt-2">
+          <a href="#About">
+            <img src="images/me video.gif" alt="Showrin Rahman" class="mx-auto rounded-full" width="110">
           </a>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">PhD Applicant · Fall 2027</p>
         </div>
-        <nav class="space-y-4 text-center">
-          <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="index.html">About</a>
-          <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="index.html#Experience">Experience</a>
-          <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="education_co-curricular_activities.html">Education</a>
-          <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="education_co-curricular_activities.html#CoCurricular">Co-Curricular Activities</a>
-          <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="Projects_Achievments.html">Research & Projects</a>
-          <a class="block text-lg text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="awards.html">Awards & Honors</a>
+        <nav class="space-y-2.5 text-center">
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#Education">Education & Activities</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#About">About</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#ResearchInterests">Research Interests</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#ResearchVision">Research Vision</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#Publications">Publications</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#Projects">Projects</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#Experience">Experience</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#Skills">Skills</a>
+          <a class="block text-sm text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            href="#Awards">Awards</a>
         </nav>
-        <div class="text-center mt-8">
-          <button class="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors" onclick="toggleTheme()">
-            Toggle Theme
-          </button>
-        </div>
       </div>
+      <div class="space-y-2 mt-4">
+        <a href="mailto:showrinrahman26@gmail.com"
+          class="flex items-center justify-center gap-2 w-full py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700">
+          <i class="fas fa-envelope"></i> Contact
+        </a>
+        <a href="CV of Showrin Rahman.pdf" download
+          class="flex items-center justify-center gap-2 w-full py-2 bg-gray-700 text-white text-sm font-medium rounded-lg hover:bg-gray-800">
+          <i class="fas fa-file-pdf"></i> Download CV
+        </a>
+        <button onclick="toggleTheme()"
+          class="w-full py-2 bg-gray-200 dark:bg-gray-700 text-black dark:text-white text-sm rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+          Toggle Theme
+        </button>
+      </div>
+    </div>
 
-        <!-- Main Content -->
-        <div class="md:ml-96 p-6 md:p-12 w-full max-w-4xl">
-            <section class="banner mb-12 text-center">
-                <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100">
-                    Showrin Rahman
-                </h1>
-                <h6 class="text-xl text-gray-600 dark:text-gray-400">
-                </h6>
-            </section>
-            <section class="about mb-12" id="About">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-                    About Me
-                </h2>
-                <div class="flex flex-col md:flex-row items-center">
-                    <img alt="Portrait of Showrin Rahman" class="rounded-full mb-4 md:mb-0 md:mr-4" height="150" src="images/Showrin Rahman.jpg" width="150"/>
-                    <p class="text-gray-700 dark:text-gray-300">
-                      Showrin Rahman is a Computer Science graduate from BRAC University (2025) specializing in AI, Data Science, and GeoAI. She works as an AI Application Developer at ACI PLC, developing agentic AI workflows with CrewAI, n8n, and Google ADK, and building scalable microservices using FastAPI, Docker, and LLMs on GCP and AWS.
-                      Her research in deep learning, computer vision, and remote sensing has been published in IEEE Eurocon, Springer IFIP, and ACDSA.
-            
-                    </p>
-                </div>
-            </section>
-           
+    <!-- Main Content -->
+    <div id="main-content" class="md:ml-64 pt-14 md:pt-0 px-4 py-6 md:p-12 w-full max-w-4xl">
 
-             <!-- Social Section -->
-      <section class="social mb-12">
-        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Connect with Me</h2>
-        <div class="flex justify-center space-x-4">
-          <a class="text-blue-600" href="https://www.facebook.com/showrin.rahman.5" aria-label="Facebook">
-            <i class="fab fa-facebook fa-2x"></i>
-          </a>
-          <a class="text-blue-700" href="https://www.linkedin.com/in/showrin-rahman" aria-label="LinkedIn">
-            <i class="fab fa-linkedin fa-2x"></i>
-          </a>
-          <a class="text-gray-800 dark:text-gray-300" href="https://github.com/showrin20" aria-label="GitHub">
-            <i class="fab fa-github fa-2x"></i>
-          </a>
-          <a class="text-orange-600" href="https://leetcode.com/u/showrinrahman15/" aria-label="LeetCode">
-            <i class="fas fa-code fa-2x"></i>
-          </a>
-          <a class="text-red-600" href="mailto:showrinrahman66@gmail.com" aria-label="Email">
-            <i class="fas fa-envelope fa-2x"></i>
-          </a>
-          <a class="text-green-600" href="tel:+8801750758939" aria-label="Phone">
-            <i class="fas fa-phone fa-2x"></i>
-          </a>
-          <a class="inline-block px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" download="CV of Showrin Rahman.pdf" href="CV of Showrin Rahman.pdf">Download CV</a>
+      <!-- Header -->
+      <section class="mb-8 text-center">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">Showrin Rahman</h1>
+        <p class="text-base md:text-lg text-blue-600 dark:text-blue-400 font-medium mt-1">
+          PhD Applicant &nbsp;&middot;&nbsp; Computer Vision &nbsp;&middot;&nbsp; Deep Learning &nbsp;&middot;&nbsp;
+          GeoAI
+        </p>
+        <!-- Mobile quick-nav pills -->
+        <div class="md:hidden flex gap-2 overflow-x-auto pb-1 mt-4 justify-start">
+          <a href="#ResearchInterests"
+            class="whitespace-nowrap px-3 py-1.5 bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 rounded-full shadow border border-gray-200 dark:border-gray-700">Research</a>
+          <a href="#Publications"
+            class="whitespace-nowrap px-3 py-1.5 bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 rounded-full shadow border border-gray-200 dark:border-gray-700">Publications</a>
+          <a href="#Projects"
+            class="whitespace-nowrap px-3 py-1.5 bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 rounded-full shadow border border-gray-200 dark:border-gray-700">Projects</a>
+          <a href="#Awards"
+            class="whitespace-nowrap px-3 py-1.5 bg-white dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-300 rounded-full shadow border border-gray-200 dark:border-gray-700">Awards</a>
+          <a href="CV of Showrin Rahman.pdf" download
+            class="whitespace-nowrap px-3 py-1.5 bg-blue-600 text-white text-xs rounded-full shadow font-medium">CV</a>
         </div>
       </section>
 
-
-            <section class="experience mb-12" id="Experience">
-                <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-                    Professional Experience
-                </h2>
-
-  
-  <p class="text-gray-700 dark:text-gray-300 mt-2">
-<div class="mb-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <h3 class="font-bold text-gray-900 dark:text-gray-100">
-    AI Application Developer, ACI PLC (Dhaka, Bangladesh)
-  </h3>
-  <p class="italic text-gray-700 dark:text-gray-300">
-    Feb 2026 – Present
-  </p>
-  
-  <p class="text-gray-700 dark:text-gray-300 mt-2">
-    I work on building and scaling <strong>AI-powered applications</strong> and 
-    <strong>LLM-driven systems</strong>, integrating backend services, user interfaces, 
-    and intelligent workflows for real-world use cases.
-  </p>
-
-  <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
-    <li>Develop and maintain <strong>full-stack AI applications</strong> using <strong>FastAPI</strong> and <strong>React (TypeScript)</strong>.</li>
-    <li>Build and integrate <strong>LLM-powered features</strong> using <strong>LangChain</strong>, including content generation and retrieval-based pipelines.</li>
-    <li>Design and optimize <strong>RESTful APIs</strong> for scalable, real-time data-driven applications.</li>
-    <li>Implement <strong>authentication and security systems</strong> using <strong>JWT</strong> and <strong>Google OAuth</strong>.</li>
-    <li>Enhance <strong>RAG pipelines</strong> with vector databases, improving data ingestion and retrieval performance.</li>
-    <li>Collaborate on <strong>UI dashboards and AI interfaces</strong> for improved user interaction and system usability.</li>
-    <li>Contribute to <strong>Docker-based deployments</strong>, CI/CD workflows, and production-grade backend architecture.</li>
-  </ul>
-</div>
-
-<div class="mb-6 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <h3 class="font-bold text-gray-900 dark:text-gray-100">
-    Associate AI Engineer, Ontik Technology (Dhaka, Bangladesh)
-  </h3>
-  <p class="italic text-gray-700 dark:text-gray-300">
-    Oct 2025 – Feb 2026 
-  </p>
-  
-  <p class="text-gray-700 dark:text-gray-300 mt-2">
-    I work on designing and deploying <strong>agentic AI workflows</strong> and 
-    <strong>intelligent automation systems</strong> that connect large language models 
-    with real-world tools and data.
-  </p>
-  <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1">
-    <li>Architect and deploy <strong>AI-driven automation pipelines</strong> using <strong>n8n</strong>, <strong>CrewAI</strong>, and <strong>Google ADK</strong>.</li>
-    <li>Develop and maintain <strong>FastAPI microservices</strong> to serve AI models and automation endpoints.</li>
-    <li>Utilize <strong>GCP</strong> and <strong>AWS EC2</strong> for scalable model training and deployment.</li>
-    <li>Containerize workflows with <strong>Docker</strong> for reproducible, production-ready environments.</li>
-    <li>Collaborate across teams to integrate <strong>ML models</strong> into intelligent, data-driven applications.</li>
-  </ul>
-</div>
-
-
-
-
-
-
-
-<div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-  <h3 class="font-bold text-gray-900 dark:text-gray-100">
-      AI Intern, Ontik Technology (Dhaka, Bangladesh)
-  </h3>
-  <p class="italic text-gray-700 dark:text-gray-300">
-    July 2025 – October 2025
-  </p>
-  <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
-      <li>Developed and optimized intelligent agent workflows using CrewAI, automation pipelines with n8n and Selenium.</li>
-      <li>Built scalable AI solutions with Python, Docker, and large language models (LLMs).</li>
-      <li>Performed data preprocessing and analysis using Pandas, NumPy, and scikit-learn.</li>
-      <li>Trained, evaluated, and documented machine learning models, tracking experiments via MLflow.</li>
-      <li>Integrated CI/CD pipelines with GitHub Actions and maintained reproducible research in Jupyter Notebooks.</li>
-      <li>Collaborated in deploying production-ready AI systems for real-world applications.</li>
-  </ul>
-</div>
-
-                <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-                  <h3 class="font-bold text-gray-900 dark:text-gray-100">
-                      Coding Instructor, Dreamers Academy (Dhaka, Bangladesh)
-                  </h3>
-                  <p class="italic text-gray-700 dark:text-gray-300">
-                    December 2024-July 2025
-                  </p>
-                  <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
-                      <li>Delivered hands-on training in HTML, CSS, Python and JavaScript for foundational web and software development.</li>
-                      <li>Designed engaging activities to enhance logical thinking and algorithmic problem-solving.
-                      </li>
-                      <li>Conducted lessons on block-based programming using Scratch, MIT App Inventor, and Roblox game development.
-                      </li>
-               
-                  </ul>
+      <!-- About -->
+      <section class="mb-10" id="About">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">About</h2>
+        <div class="flex flex-col md:flex-row items-start gap-5">
+          <img alt="Showrin Rahman" class="rounded-full flex-shrink-0 mx-auto md:mx-0" height="130"
+            src="images/Showrin Rahman.jpg" width="130" />
+          <div>
+            <p class="text-gray-700 dark:text-gray-300 mb-3 text-sm md:text-base">
+              I am a Computer Science graduate from BRAC University (2025, CGPA 3.62/4.00) with research focused on
+              <strong>deep learning and computer vision methods for remote sensing and environmental
+                monitoring</strong>.
+              I am seeking a PhD position to develop scalable, high-precision approaches for automated environmental
+              monitoring — using high-dimensional, multi-source geospatial data to detect environmentally significant
+              and potentially hazardous open-water features.
+            </p>
+            <p class="text-gray-700 dark:text-gray-300 mb-4 text-sm md:text-base">
+              My undergraduate thesis developed a self-supervised framework combining <strong>Masked Autoencoders and
+                Mamba</strong> for semantic segmentation of Sentinel-1 SAR imagery to detect riverbank erosion. I have
+              peer-reviewed publications at <strong>Springer IFIP AICT, IEEE ACDSA</strong>, and arXiv, and industry
+              R&amp;D experience in Automatic Document Recognition and Intelligent Document Processing. I also hold a
+              fully-funded <strong>OSUN Undergraduate Mobility Scholarship</strong> to Bard College, USA.
+            </p>
+            <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+              <a href="mailto:showrinrahman26@gmail.com"
+                class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm font-medium w-full sm:w-auto">
+                <i class="fas fa-envelope"></i> Contact
+              </a>
+              <a href="CV of Showrin Rahman.pdf" download
+                class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-700 text-white rounded-lg hover:bg-gray-800 text-sm font-medium w-full sm:w-auto">
+                <i class="fas fa-file-pdf"></i> Download CV
+              </a>
+              <div class="flex gap-4 items-center pt-1 sm:pt-0">
+                <a href="https://www.linkedin.com/in/showrin-rahman" target="_blank" aria-label="LinkedIn"
+                  class="text-blue-700 hover:opacity-75"><i class="fab fa-linkedin fa-lg"></i></a>
+                <a href="https://github.com/showrin20" target="_blank" aria-label="GitHub"
+                  class="text-gray-800 dark:text-gray-300 hover:opacity-75"><i class="fab fa-github fa-lg"></i></a>
+                <a href="https://scholar.google.com/citations?user=showrinrahman" target="_blank"
+                  aria-label="Google Scholar" class="text-blue-600 hover:opacity-75"><i
+                    class="fas fa-graduation-cap fa-lg"></i></a>
+                <a href="https://arxiv.org/search/?searchtype=author&query=Showrin+Rahman" target="_blank"
+                  aria-label="arXiv" class="text-red-600 hover:opacity-75"><i class="fas fa-book-open fa-lg"></i></a>
               </div>
-
-
-
-                <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
-                    <h3 class="font-bold text-gray-900 dark:text-gray-100">
-                        Sysonex, Quality Assurance Analyst (Remote)
-                    </h3>
-                    <p class="italic text-gray-700 dark:text-gray-300">
-                         June 2024 -December 2024
-                    </p>
-                    <ul class="list-disc list-inside text-gray-700 dark:text-gray-300">
-                        <li>Achieved a 25% increase in QA productivity by coordinating 60+ daily scrums and managing 10+ sprints.</li>
-                        <li>Secured a 15% reduction in bug backlog by leading a 3-member QA team through improved collaboration.</li>
-                        <li>Streamlined tracking and documentation by logging 80+ test cases in Jira.</li>
-                        <li>Enhanced bug fixing and UI/UX improvements by using Git/GitHub for version control and React.js/Next.js for development.</li>
-                    </ul>
-                </div>
-            </section>
-
-
-<section class="skills mb-12" id="Skills">
-  <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-    Skills
-  </h2>
-  <div class="grid grid-cols-2 md:grid-cols-6 gap-4">
-    <!-- Programming Languages -->
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Python</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">JavaScript</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">C</span>
-    </button>
-
-    <!-- Core AI/ML Frameworks -->
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">PyTorch</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">TensorFlow</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">scikit-learn</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">NumPy</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Pandas</span>
-    </button>
-
-    <!-- NLP / Computer Vision -->
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">spaCy</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">NLTK</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Hugging Face</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">LangChain</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">OpenCV</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">YOLO</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Roboflow</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Tesseract OCR</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">N8N</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">CrewAI</span>
-    </button>   
-
-    <!-- Data & Cloud -->
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">MySQL</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">MongoDB</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">GCP</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Docker</span>
-    </button>
-
-    <!-- DevOps / Tools -->
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Git/GitHub</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Linux</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Postman</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Selenium</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Jira</span>
-    </button>
-    <button class="flex items-center justify-center p-2 bg-gray-200 dark:bg-gray-700 rounded-lg">
-      <span class="text-gray-700 dark:text-gray-300">Confluence</span>
-    </button>
-  </div>
-</section>
-
-
-
-            <footer class="text-center text-white bg-black py-4 rounded-lg">
-                <p>© 2023 Showrin Rahman. All rights reserved.</p>
-            </footer>
+            </div>
+          </div>
         </div>
+      </section>
+
+      <!-- Research Interests -->
+      <section class="mb-10" id="ResearchInterests">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Research Interests</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-green-600">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm md:text-base">SAR Image Analysis &
+              Segmentation</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Semantic segmentation of Sentinel-1 SAR imagery for
+              land-water boundary detection, riverbank erosion monitoring, and open-water feature extraction.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-blue-600">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm md:text-base">Environmental
+              Monitoring & GeoAI</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Automated detection of environmentally significant and
+              hazardous open-water features using multi-source, high-dimensional geospatial data at scale.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-orange-500">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm md:text-base">Self-Supervised
+              Learning for Remote Sensing</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Masked Autoencoders (MAE) and Mamba state-space models
+              for self-supervised segmentation of unlabeled satellite and SAR imagery.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-blue-400">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm md:text-base">Optical Remote Sensing
+              & Change Detection</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Multi-temporal Sentinel-2 analysis using spectral
+              indices (NDWI, NDVI) and ML classifiers in Google Earth Engine for riverbank and land-use change
+              detection.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-purple-500">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm md:text-base">Computer Vision & Image
+              Restoration</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Multi-scale feature fusion and adaptive attention for
+              spatially-varying deblurring; applied to improving OCR and document processing pipelines.</p>
+          </div>
+          <div class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-teal-500">
+            <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm md:text-base">Generative Models for
+              Image Synthesis</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Segmentation-guided diffusion pipelines that separate
+              structural from appearance information to generate copyright-safe training data.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Research Vision -->
+      <section class="mb-10" id="ResearchVision">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Research Vision</h2>
+        <div
+          class="p-5 md:p-6 bg-blue-50 dark:bg-gray-800 rounded-lg border border-blue-200 dark:border-gray-700 text-sm md:text-base">
+          <p class="text-gray-700 dark:text-gray-300 mb-3">
+            My research focuses on developing <strong>scalable, high-precision deep learning methods for automated
+              environmental monitoring</strong> — particularly using SAR and optical satellite imagery to extract
+            meaningful information from multi-source geospatial data and detect environmentally significant,
+            potentially hazardous open-water features.
+          </p>
+          <p class="text-gray-700 dark:text-gray-300 mb-3">
+            In my undergraduate thesis, I explored self-supervised segmentation of Sentinel-1 SAR imagery using
+            Masked Autoencoders and Mamba, building a framework for riverbank erosion detection that does not
+            depend on dense manual annotation. This work connects directly to my broader goal: closing the
+            annotation gap in geospatial AI so that models can scale to large, label-scarce environmental datasets.
+          </p>
+          <p class="text-gray-700 dark:text-gray-300">
+            In a PhD, I want to extend this toward new environmental monitoring applications — including SAR-based
+            sea and lake ice mapping, marine feature monitoring, and multi-modal fusion of SAR and optical data —
+            producing methods that are both scientifically rigorous and immediately applicable to climate
+            monitoring and disaster response.
+          </p>
+        </div>
+      </section>
+
+      <!-- Education -->
+      <section class="mb-10" id="Education">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Education & Activities</h2>
+
+        <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100">BRAC University, Dhaka, Bangladesh</h3>
+          <p class="italic text-gray-700 dark:text-gray-300 text-sm">June 2021 – September 2025</p>
+          <p class="text-gray-700 dark:text-gray-300 text-sm">BSc in Computer Science (CS)</p>
+          <p class="font-semibold text-gray-700 dark:text-gray-300 mt-1 text-sm">CGPA: 3.62 / 4.00</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-3 font-medium">Relevant Coursework:</p>
+          <div class="flex flex-wrap gap-2 mt-1">
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Machine
+              Learning</span>
+            <span class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Deep
+              Learning</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Computer
+              Vision</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Natural
+              Language Processing</span>
+            <span class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Data
+              Structures & Algorithms</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Artificial
+              Intelligence</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Intelligent
+              Systems</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Database
+              Systems</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Operating
+              Systems</span>
+            <span
+              class="px-2 py-0.5 bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded text-xs">Theory of
+              Computation</span>
+          </div>
+        </div>
+
+        <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100">Bard College, Annandale-On-Hudson, New York, USA</h3>
+          <p class="italic text-gray-700 dark:text-gray-300 text-sm">Jan 2024 – May 2024</p>
+          <p class="text-gray-700 dark:text-gray-300 text-sm">Exchange Semester, Spring 2024</p>
+        </div>
+
+        <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100">Holy Cross College, Dhaka, Bangladesh</h3>
+          <p class="italic text-gray-700 dark:text-gray-300 text-sm">2018 – 2020</p>
+          <p class="text-gray-700 dark:text-gray-300 text-sm">Higher Secondary Certificate</p>
+          <p class="text-gray-700 dark:text-gray-300 text-sm mt-0.5">GPA: 5.00</p>
+        </div>
+
+        <h3 class="text-xl font-bold mb-4 mt-6 text-gray-900 dark:text-gray-100">Co-Curricular Activities</h3>
+
+        <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100">Bracu Mongol Tori, Senior I</h3>
+          <p class="italic text-gray-700 dark:text-gray-300 text-sm">Feb 2022 – June 2024</p>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 text-sm mt-2">
+            <li>Developed an offline rover mapping system with 20% efficiency gain, worked with OpenCV and YOLO v5, and
+              built the BRACU Mongol Tori website frontend.</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100">Robotics Club of BRAC University — ROBU, Secretary</h3>
+          <p class="italic text-gray-700 dark:text-gray-300 text-sm">Nov 2022 – June 2024</p>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 text-sm mt-2">
+            <li>Served as a panelist in a 40-member Research and Project Management department, managed the flagship
+              Basics of Robotics course, and developed 5+ projects using ROS, OpenCV, Arduino, and Raspberry Pi.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Publications -->
+      <section class="mb-10" id="Publications">
+        <h2 class="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">Publications</h2>
+        <div class="space-y-5">
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-gray-400">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">Undergraduate
+                Thesis — In Progress</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Ongoing Research</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Masked Autoencoder and Mamba-Based Self-Supervised
+              Segmentation of SAR Imagery for Riverbank Erosion Detection</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman — Undergraduate Thesis, BRAC
+              University, 2025</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Develops a self-supervised framework combining
+              Masked Autoencoders and Mamba state-space models for semantic segmentation of Sentinel-1 SAR imagery to
+              automate land-water boundary delineation and detect riverbank erosion — without requiring dense manual
+              annotation. GAN-based reconstruction is used to fill temporal data gaps in the SAR time series.</p>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-blue-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900 px-2 py-0.5 rounded">IEEE
+                EUROCON 2025</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Conference Paper · Peer-Reviewed</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Multi-Scale Feature Fusion with Adaptive Attention for
+              Robust Image Deblurring</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">S. Rahman, S. H. Rahman, K. Kim, M. Jawad —
+              IEEE EUROCON 2025, Poland</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Proposes MSFAA with the CAFI attention module for
+              spatially-varying blind deblurring. Achieves <strong>+2.1 dB PSNR, +0.043 SSIM</strong>, and 18% lower
+              compute versus SOTA. The technique was subsequently applied in FlowPay (industry R&amp;D) to improve OCR
+              accuracy on degraded business documents.</p>
+            <div class="mt-3 flex flex-wrap gap-4 items-center">
+              <a class="text-blue-600 hover:underline text-sm font-medium"
+                href="https://ieeexplore.ieee.org/document/11073437" target="_blank">IEEE Xplore &rarr;</a>
+              <span class="text-xs text-gray-400">DOI: 10.1109/EUROCON64823.2025.11073437</span>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-green-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900 px-2 py-0.5 rounded">Springer
+                IFIP AICT 2024</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Book Chapter · Peer-Reviewed</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">TWIG: Two-Step Image Generation Using Segmentation
+              Masks to Prevent Copyright Infringement</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman et al. — IFIP AICT, Springer,
+              2024</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">A two-step diffusion pipeline where segmentation
+              masks decouple structure from texture, generating copyright-free training images without reproducing
+              protected visual content.</p>
+            <div class="mt-2 space-y-0.5">
+              <p class="text-xs text-gray-500 dark:text-gray-400">Part of the book series: IFIP Advances in Information
+                and Communication Technology <span class="font-medium">(IFIPAICT, volume 705)</span></p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">Conference series: IFIP International Summer School on
+                Privacy and Identity Management</p>
+            </div>
+            <div class="mt-3">
+              <a class="text-blue-600 hover:underline text-sm font-medium"
+                href="https://link.springer.com/chapter/10.1007/978-3-031-91054-8_4" target="_blank">Springer Link
+                &rarr;</a>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-purple-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-900 px-2 py-0.5 rounded">IEEE
+                ACDSA 2025</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Conference Paper · Peer-Reviewed</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Riverbank Change Detection in the Jamuna River Basin,
+              Bangladesh: A Remote Sensing and Machine Learning Approach</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman et al. — IEEE ACDSA, 2025</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Integrates Sentinel-2 satellite imagery, spectral
+              indices (NDWI, NDVI), and ML classifiers in Google Earth Engine to analyze and predict multi-temporal
+              riverbank changes in the Jamuna basin — directly relevant to flood risk and erosion monitoring in
+              climate-vulnerable Bangladesh.</p>
+            <div class="mt-3">
+              <a class="text-blue-600 hover:underline text-sm font-medium"
+                href="https://ieeexplore.ieee.org/document/11166394" target="_blank">IEEE Xplore &rarr;</a>
+            </div>
+          </div>
+
+          <div class="p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-orange-500">
+            <div class="flex flex-wrap items-start justify-between gap-2 mb-2">
+              <span
+                class="text-xs font-semibold uppercase tracking-wide text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900 px-2 py-0.5 rounded">arXiv
+                2025 — Under Review</span>
+              <span class="text-xs text-gray-500 dark:text-gray-400">Preprint · Under Submission</span>
+            </div>
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">TextDiffuser-RL: Efficient and Robust Text Layout
+              Optimization for High-Fidelity Text-to-Image Synthesis</h3>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1 italic">Showrin Rahman et al. — arXiv:2505.19291,
+              2025</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300 mt-2">Introduces RL-guided character-level text layout
+              optimization for diffusion-based text-to-image models, improving glyph rendering fidelity and spatial
+              coherence over existing baselines.</p>
+            <div class="mt-3 flex flex-wrap gap-4 items-center">
+              <a class="text-blue-600 hover:underline text-sm font-medium" href="https://arxiv.org/abs/2505.19291"
+                target="_blank">arXiv &rarr;</a>
+              <span class="text-xs text-gray-400">arXiv:2505.19291</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Projects -->
+      <section class="mb-10" id="Projects">
+        <h2 class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100">Research & ML Projects</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">Implementation and experimental work underlying or
+          adjacent to publications.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="Certificate of R&D Collaboration — FlowPay, 276 Holdings Co., Ltd."
+              class="mb-4 rounded w-full object-contain max-h-48 bg-gray-50 dark:bg-gray-700" src="images/Korea.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">FlowPay — AI Solution for Automatic Document
+              Recognition</h3>
+            <div class="flex flex-wrap gap-2 mt-1 mb-2">
+              <span class="px-2 py-0.5 text-xs font-semibold text-white bg-blue-700 rounded-full">Industry R&D</span>
+              <span class="px-2 py-0.5 text-xs font-semibold text-white bg-gray-600 rounded-full">OCR · IDP</span>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+              276 Holdings Co., Ltd. — AI &amp; Data Division &nbsp;&bull;&nbsp; Seoul, South Korea &nbsp;&bull;&nbsp;
+              Jul 2025 – Present<br>
+              Role: ML &amp; DL Engineer, AI Researcher (Independent Researcher)
+            </p>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Developed OCR pipelines using EasyOCR and Tesseract for
+              Automatic Document Recognition for FlowPay. Applied document-specific image preprocessing and MSFAA-based
+              deblurring to improve OCR accuracy on degraded business documents. R&amp;D area: Computer Vision and
+              Intelligent Document Processing (IDP).</p>
+            <p class="text-xs text-gray-400 dark:text-gray-500 mt-2 italic">Certificate of R&amp;D Collaboration issued
+              Aug 2025 · 276 Holdings Co., Ltd.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="EuroSAT satellite imagery" class="mb-4 rounded w-full object-cover max-h-48" src="images/eurosat-overview.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Vegetation Degradation Detection via Satellite
+              Imagery</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-blue-600 rounded-full">Remote
+              Sensing · Deep Learning</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">CNN-based classifier on EuroSAT satellite data to
+              identify vegetation health and degradation patterns at scale.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/BracU_Courses/tree/main/CSE424/Task4" target="_blank">GitHub &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="Crisis Crew disaster response" class="mb-4 rounded w-full object-cover max-h-48" src="images/1.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Cyclone Evacuation Optimization via Agent-Based
+              Simulation</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-blue-600 rounded-full">Multi-Agent
+              Systems · Simulation</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Agent-based model simulating and optimizing evacuation
+              routes during cyclone threats — applied AI for disaster response.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/BracU_Courses/tree/main/CSE474/submission4" target="_blank">GitHub
+              &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="BiLSTM evaluation metrics" class="mb-4 rounded w-full object-cover max-h-48 bg-white" src="images/3.PNG">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">BiLSTM Part-of-Speech Tagger</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded-full">NLP
+              · Sequence Modeling</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Bidirectional LSTM achieves <strong>97%
+                accuracy</strong> on token-level POS tagging (POS 1 dataset). Demonstrates sequence-to-sequence neural
+              labeling.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/BracU_Courses/tree/main/CSE440" target="_blank">GitHub &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="MangoScan app" class="mb-4 rounded w-full object-cover max-h-48" src="images/mango.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">MangoScan — Fine-Grained Image Classifier</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded-full">Computer
+              Vision · PyTorch</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Fine-grained classifier for 10 Bangladeshi mango
+              varieties using PyTorch transfer learning — <strong>95.05% accuracy</strong>. Streamlit demo.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/MangoScan" target="_blank">GitHub &rarr;</a>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="CrisisCrewBot UI" class="mb-4 rounded w-full object-cover max-h-48" src="images/crisiscrewbot.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">CrisisCrewBot — AI Emergency Response System</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-red-600 rounded-full">LLM
+              Application · React</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">AI-powered fire emergency data collection system for
+              Dhaka, integrating Gemini AI and real-time Google Sheets reporting.</p>
+            <div class="flex gap-3 mt-2">
+              <a class="text-blue-600 hover:underline text-sm" href="https://github.com/showrin20/crisiscrew-bot"
+                target="_blank">GitHub &rarr;</a>
+              <a class="text-blue-600 hover:underline text-sm" href="https://crisiscrew-bot.vercel.app/"
+                target="_blank">Live Demo</a>
+            </div>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="ThesisConnect platform" class="mb-4 rounded w-full object-contain max-h-48 bg-gray-50 dark:bg-gray-700" src="images/thesisconnect.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">ThesisConnect — Academic Collaboration Platform</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-green-600 rounded-full">Full
+              Stack · Research Tools</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Ecosystem for thesis management, research sharing, and
+              scholarly communication. Built with React, Node.js, Express, MongoDB.</p>
+            <div class="flex gap-3 mt-2">
+              <a class="text-blue-600 hover:underline text-sm" href="https://github.com/showrin20/ThesisConnect"
+                target="_blank">GitHub &rarr;</a>
+              <a class="text-blue-600 hover:underline text-sm" href="https://thesis-connect.vercel.app/"
+                target="_blank">Live Demo</a>
+            </div>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <img alt="LLM Resource Tracker" class="mb-4 rounded w-full object-cover max-h-48" src="images/LLM Resource.png">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">LLM Resource Tracker</h3>
+            <span
+              class="inline-block mt-1 mb-2 px-2 py-0.5 text-xs font-semibold text-white bg-purple-600 rounded-full">Browser
+              Extension · Sustainable AI</span>
+            <p class="text-sm text-gray-700 dark:text-gray-300">Privacy-first browser extension estimating token,
+              energy, and water consumption of LLM sessions on-device. Supports ChatGPT, Claude, Gemini.</p>
+            <a class="text-blue-600 hover:underline text-sm mt-2 inline-block"
+              href="https://github.com/showrin20/LLM-Resource-Tracker" target="_blank">GitHub &rarr;</a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Experience -->
+      <section class="mb-10" id="Experience">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Industry Experience</h2>
+
+        <div class="mb-4 p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-sm md:text-base">AI Application Developer — ACI
+            PLC, Dhaka</h3>
+          <p class="text-xs italic text-gray-500 dark:text-gray-400 mt-0.5">Feb 2026 – Present</p>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mt-2 text-sm">
+            <li>Build full-stack AI applications with FastAPI and React (TypeScript).</li>
+            <li>Integrate LLM-powered features using LangChain — RAG pipelines with vector databases.</li>
+            <li>Docker-based deployments on Production Server; implement JWT and Google OAuth security.</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <h3 class="font-bold text-gray-900 dark:text-gray-100 text-sm md:text-base">Associate AI Engineer — Ontik
+            Technology, Dhaka</h3>
+          <p class="text-xs italic text-gray-500 dark:text-gray-400 mt-0.5">Oct 2025 – Feb 2026</p>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mt-2 text-sm">
+            <li>Designed agentic AI workflows using n8n, CrewAI, and Google ADK.</li>
+            <li>Deployed FastAPI microservices on GCP and AWS; containerized with Docker.</li>
+            <li>Trained and evaluated ML models; tracked experiments via MLflow.</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+          <div class="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h3 class="font-bold text-gray-900 dark:text-gray-100 text-sm md:text-base">AI Intern — Ontik Technology,
+                Dhaka</h3>
+              <p class="text-xs italic text-gray-500 dark:text-gray-400 mt-0.5">July 2025 – Oct 2025</p>
+            </div>
+            <a href="Internship Certificate- Showrin Rahman.pdf" target="_blank"
+              class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600">
+              <i class="fas fa-file-pdf text-red-500"></i> Certificate
+            </a>
+          </div>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mt-2 text-sm">
+            <li>Built intelligent agent workflows with CrewAI; automation pipelines with n8n and Selenium.</li>
+            <li>Data preprocessing and model evaluation with Pandas, NumPy, scikit-learn; CI/CD with GitHub Actions.</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md opacity-75">
+          <div class="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h3 class="font-bold text-gray-900 dark:text-gray-100 text-sm md:text-base">Coding Instructor (Part-Time)
+                — Dreamers Academy, Dhaka</h3>
+              <p class="text-xs italic text-gray-500 dark:text-gray-400 mt-0.5">Dec 2024 – Jul 2025</p>
+            </div>
+            <a href="Ms. Showrin.pdf" target="_blank"
+              class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600">
+              <i class="fas fa-file-pdf text-red-500"></i> Certificate
+            </a>
+          </div>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mt-2 text-sm">
+            <li>Taught HTML, CSS, Python, and JavaScript to students at Dreamers Academy (from LEAD), Dhanmondi, Dhaka.
+            </li>
+            <li>Part-time instructor; acknowledged for positive contributions to the growth of the organization.</li>
+          </ul>
+        </div>
+
+        <div class="mb-4 p-4 md:p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md opacity-75">
+          <div class="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <h3 class="font-bold text-gray-900 dark:text-gray-100 text-sm md:text-base">Quality Assurance Analyst —
+                Sysonex Development Limited, Dhaka</h3>
+              <p class="text-xs italic text-gray-500 dark:text-gray-400 mt-0.5">Jun 2024 – Dec 2024 · Front-end & Design
+                Department</p>
+            </div>
+            <a href="Sysonex - Experience Certificate (Showrin Rahman).pdf" target="_blank"
+              class="flex-shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 border border-gray-200 dark:border-gray-600">
+              <i class="fas fa-file-pdf text-red-500"></i> Certificate
+            </a>
+          </div>
+          <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-1 mt-2 text-sm">
+            <li>Conducted QA processes for front-end and design deliverables; tracked issues and workflows with Jira and
+              Git.</li>
+            <li>Awarded Certificate of Completion (Dec 2024) recognizing dedication and contributions to Sysonex.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Skills -->
+      <section class="mb-10" id="Skills">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Technical Skills</h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Research &
+              ML</h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">PyTorch</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">TensorFlow</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">Hugging
+                Face</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">scikit-learn</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">OpenCV</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">YOLO</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">Diffusion
+                Models</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">Masked
+                Autoencoders</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">MLflow</span>
+              <span
+                class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-xs md:text-sm">LaTeX</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">Languages &
+              Tools</h3>
+            <div class="flex flex-wrap gap-2">
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">Python</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">JavaScript</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">NumPy
+                / Pandas</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">LangChain</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">FastAPI</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">Docker</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">GCP
+                / AWS</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">Git
+                / Linux</span>
+              <span
+                class="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-xs md:text-sm">MySQL
+                / MongoDB</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Awards -->
+      <section class="mb-10" id="Awards">
+        <h2 class="text-2xl font-bold mb-4 text-gray-900 dark:text-gray-100">Awards & Honors</h2>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mb-5">Scholarships, competitions, and recognition</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-blue-500">
+            <img alt="OSUN Scholarship" class="mb-3 rounded w-full object-cover h-36" src="images/osun.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">OSUN Undergraduate Mobility Scholarship</h3>
+            <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 mt-0.5">Spring 2024 · Bard College, New
+              York, USA</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Fully funded scholarship covering tuition,
+              accommodation, living expenses, insurance, and travel — awarded on academic merit and research potential.
+            </p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-purple-500">
+            <img alt="Kibo Robot Programming Challenge" class="mb-3 rounded w-full object-cover h-36"
+              src="images/kibo.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">2nd Runner-Up — 3rd Kibo Robot Programming Challenge
+            </h3>
+            <p class="text-xs font-semibold text-purple-600 dark:text-purple-400 mt-0.5">2022 · Japan Aerospace
+              Exploration Agency (JAXA)</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Competed in JAXA's international robotics
+              programming challenge using the ISS onboard computer.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-green-500">
+            <img alt="FOREWARN Disaster Hackathon" class="mb-3 rounded w-full object-cover h-36"
+              src="images/forwarn.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Top 5 Finalist — FOREWARN Disaster Hackathon 2.0</h3>
+            <p class="text-xs font-semibold text-green-600 dark:text-green-400 mt-0.5">Among 84 teams</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Developed an AI-driven disaster preparedness
+              solution and placed in the top 5 out of 84 competing teams.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-orange-500">
+            <img alt="Banglalink Womentor Program" class="mb-3 rounded w-full object-cover h-36"
+              src="images/womentor.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Top 15 — Banglalink Womentor Program</h3>
+            <p class="text-xs font-semibold text-orange-600 dark:text-orange-400 mt-0.5">Among 400 applicants</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Selected in the top 15 out of 400 applicants for a
+              mentorship program supporting women in technology.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-teal-500">
+            <img alt="UIHP Selection" class="mb-3 rounded w-full object-cover h-36" src="images/CrisisCrew.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">University Innovation Hub Program (UIHP) Selection
+            </h3>
+            <p class="text-xs font-semibold text-teal-600 dark:text-teal-400 mt-0.5">BRAC IC4</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">CrisisCrew — our disaster preparedness initiative —
+              was selected for UIHP as part of the BRAC IC4 innovation ecosystem.</p>
+          </div>
+
+          <div class="p-5 bg-white dark:bg-gray-800 rounded-lg shadow-md border-l-4 border-red-500">
+            <img alt="Hult Prize Semi-Finalist" class="mb-3 rounded w-full object-cover h-36" src="images/UIHP.jpeg">
+            <h3 class="font-bold text-gray-900 dark:text-gray-100">Hult Prize Semi-Finalist — Team FLASH NEXUS</h3>
+            <p class="text-xs font-semibold text-red-600 dark:text-red-400 mt-0.5">BRAC University</p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Team FLASH NEXUS advanced to the Semi-Final Round
+              of the Hult Prize at BRAC University for a social entrepreneurship venture.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <footer class="text-center text-white bg-gray-900 py-6 rounded-lg">
+        <p class="text-sm mb-1">Seeking PhD, funded MSc, GRA &amp; research collaboration positions for Fall 2027 /
+          Spring 2028</p>
+        <p class="text-sm mb-2"><a href="mailto:showrinrahman26@gmail.com"
+            class="underline hover:text-blue-300">showrinrahman26@gmail.com</a></p>
+        <p class="text-xs text-gray-500">© 2025 Showrin Rahman</p>
+      </footer>
     </div>
+  </div>
 
-    <script>
-        // Mobile sidebar functionality
-        const sidebar = document.getElementById('sidebar');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
-        const overlay = document.getElementById('overlay');
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const closeBtn = document.getElementById('close-sidebar-btn');
+    const overlay = document.getElementById('overlay');
 
-        function openSidebar() {
-            sidebar.classList.remove('-translate-x-full');
-            overlay.classList.remove('hidden');
-            document.body.classList.add('overflow-hidden');
-        }
+    function openSidebar() { sidebar.classList.remove('-translate-x-full'); overlay.classList.remove('hidden'); document.body.classList.add('overflow-hidden'); }
+    function closeSidebar() { sidebar.classList.add('-translate-x-full'); overlay.classList.add('hidden'); document.body.classList.remove('overflow-hidden'); }
 
-        function closeSidebar() {
-            sidebar.classList.add('-translate-x-full');
-            overlay.classList.add('hidden');
-            document.body.classList.remove('overflow-hidden');
-        }
-
-        // Event listeners
-        mobileMenuBtn.addEventListener('click', openSidebar);
-        closeSidebarBtn.addEventListener('click', closeSidebar);
-        overlay.addEventListener('click', closeSidebar);
-
-        // Close sidebar when clicking navigation links on mobile
-        const navLinks = sidebar.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth < 768) {
-                    closeSidebar();
-                }
-            });
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                closeSidebar();
-            }
-        });
-    </script>
+    menuBtn.addEventListener('click', openSidebar);
+    closeBtn.addEventListener('click', closeSidebar);
+    overlay.addEventListener('click', closeSidebar);
+    sidebar.querySelectorAll('nav a').forEach(l => l.addEventListener('click', () => { if (window.innerWidth < 768) closeSidebar(); }));
+    window.addEventListener('resize', () => { if (window.innerWidth >= 768) closeSidebar(); });
+  </script>
 </body>
 
 </html>
